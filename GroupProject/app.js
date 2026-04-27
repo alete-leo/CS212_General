@@ -100,3 +100,44 @@ function renderTask() {
         $("#currTasks").append(taskItem);
     });
 }
+
+// search
+
+const searchField = $("#searchField");
+const searchResultsContainer = $("#searchResults");
+
+
+// get text ready for search, lowercase it
+$("#searchField").on("input", function () {
+    const searchQuery = searchField.val().trim().toLowerCase();
+    taskSearch(searchQuery);
+});
+
+function taskSearch(query) {
+    searchResultsContainer.html("");
+
+    if (query === "") {
+        return;
+    }
+
+    // search for title (phased out description search)
+    //const resultTask = tasks.filter(task => {
+    const resultTask = tasks.filter(function(individTask) {
+        return individTask.taskTitle.toLowerCase().includes(query);
+        // return task.taskTitle.toLowerCase().includes(query) || task.taskDesc.toLowerCase().includes(query);
+    });
+
+    // Render search results (this is temporary and will replace each search)
+    resultTask.forEach((task, index) => {
+        let taskItem = $(`
+            <div class="task" data-index="${index}"> 
+                <h3>${task.taskTitle}</h3>
+                <p>${task.taskDesc}</p>
+                <p><strong>Deadline:</strong> ${task.taskDeadline} - ${status}</p> 
+                <p><strong>Priority:</strong> ${task.taskPriority}</p>
+            </div>
+        `); // bug with status
+
+        searchResultsContainer.append(taskItem);
+    });
+}
