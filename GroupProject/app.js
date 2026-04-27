@@ -1,4 +1,5 @@
 console.log('Hello World')
+alert("Welcome to Pixel Task Manager!");
 
 const taskButton = document.getElementById("submitTask");
 const taskContainer = document.getElementById("currTasks");
@@ -99,75 +100,3 @@ function renderTask() {
         $("#currTasks").append(taskItem);
     });
 }
-
-/*
-
-examples from my own previous projects
-
-function render() {
-    taskContainer.innerHTML += `
-        <div class="card text-center col" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title mb-4">${titles[i]}</h5>
-
-                <p class="card-text">
-                    ${descriptions[i]}
-                </p>
-
-                <img src="${images[i]}" class="card-img-top">
-
-                <p>
-                    Deadline: ${deadlines[i]}
-                </p>
-
-                <p>
-                    ${daysUntilDeadline(deadlines[i])}
-                </p>
-
-                <p>
-                    Status: ${status}
-                </p>
-
-
-            </div>
-        </div>
-    `;
-}
-*/
-
-/* example array:
-const projects = [
-    {
-        title: "3D scan-based Animations",
-        description: "I utilize 3D scanning technology to bring animations to the real world, bringing imagination to life as dragons soar across the skies of Flagstaff or Legos that come to life on NAU campus.",
-        deadline: new Date("12/11/2023"),
-        imageURL: "./scanner.png"
-    },
-    {
-        title: "Pen-Pal Program",
-        description: "I have been working on an app to make being pen-pals easier, with age verification and in-app translators so kids can expand their cultural horizons.",
-        deadline: new Date("01/25/2027"),
-        imageURL: "./penpal.jpg"
-    },
-    {
-        title: "AR-based Learning",
-        description: "I am using AR to make learning interactive!",
-        deadline: new Date("04/04/2026"),
-        imageURL: "./ar_app_image.jpeg"
-    }
-];
-
-
-const project = projects[i]; //using this instead of having to do projects[i].title if that's okay
-const status = project.deadline > new Date() ? "Ongoing" : (project.deadline < new Date() ? "Completed" : "Due Today");
-
-
-projects.push({
-    title: "3D scan-based Animations",
-    description: "I utilize 3D scanning technology...",
-    deadline: new Date("12/11/2023"),
-    imageURL: "./scanner.png"
-});
-
-*/
-
