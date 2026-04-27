@@ -65,7 +65,11 @@ $("#currTasks").on("click", ".delete-btn", function () {
 
 
 function renderTask() {
-    $("#currTasks").html(""); // clear previous 
+    $("#currTasks").html(""); // clear previous
+    
+    const taskCount = tasks.length;
+    //console.log(`There are ${taskCount} tasks.`);
+    $("#taskCount").text(`Pending: ${taskCount}`);
 
     
     let status = "Ongoing";
@@ -113,21 +117,21 @@ $("#searchField").on("input", function () {
     taskSearch(searchQuery);
 });
 
+
 function taskSearch(query) {
     searchResultsContainer.html("");
+    if (query === "") { return; }
 
-    if (query === "") {
-        return;
-    }
 
     // search for title (phased out description search)
     //const resultTask = tasks.filter(task => {
     const resultTask = tasks.filter(function(individTask) {
         return individTask.taskTitle.toLowerCase().includes(query);
-        // return task.taskTitle.toLowerCase().includes(query) || task.taskDesc.toLowerCase().includes(query);
+        // || task.taskDesc.toLowerCase().includes(query);
     });
 
-    // Render search results (this is temporary and will replace each search)
+    
+    // render results (this is temporary and will replace each search)
     resultTask.forEach((task, index) => {
         let taskItem = $(`
             <div class="task" data-index="${index}"> 
@@ -141,3 +145,14 @@ function taskSearch(query) {
         searchResultsContainer.append(taskItem);
     });
 }
+
+
+
+// sorting
+
+$("#sortButton").on("click", function() {
+    tasks.sort((a, b) => a.taskPriority - b.taskPriority);
+    renderTask(); // re-render
+});
+
+
