@@ -124,14 +124,13 @@ function taskSearch(query) {
 
 
     // search for title (phased out description search)
-    //const resultTask = tasks.filter(task => {
     const resultTask = tasks.filter(function(individTask) {
         return individTask.taskTitle.toLowerCase().includes(query);
-        // || task.taskDesc.toLowerCase().includes(query);
+
     });
 
-    
-    // render results (this is temporary and will replace each search)
+
+    // render
     resultTask.forEach((task, index) => {
         let taskItem = $(`
             <div class="task" data-index="${index}"> 
