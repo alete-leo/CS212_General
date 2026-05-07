@@ -353,4 +353,79 @@ $("#sortDateButton").on("click", function() {
 // initial render
 
 renderTask();
+function renderDashboard() {
+
+    let pending = 0;
+    let completed = 0;
+    let overdue = 0;
+
+    const upcomingContainer = $("#upcoming");
+
+    if (upcomingContainer.length > 0) {
+
+        upcomingContainer.html("");
+
+        const sortedTasks = [...tasks].sort(function(a, b) {
+
+            return new Date(a.taskDeadline) -
+                   new Date(b.taskDeadline);
+        });
+
+        sortedTasks.slice(0, 5).forEach(function(task) {
+
+            if (!task.completed) {
+
+                upcomingContainer.append(`
+
+                    <div class="task-section">
+
+                        <h3>${task.taskTitle}</h3>
+
+                        <p>${task.taskDesc}</p>
+
+                        <p>
+                            Due:
+                            ${new Date(task.taskDeadline).toDateString()}
+                        </p>
+
+                    </div>
+                `);
+            }
+        });
+    }
+
+    tasks.forEach(function(task) {
+
+        let today = new Date();
+
+        today.setHours(0,0,0,0);
+
+        let dueDate = new Date(task.taskDeadline);
+
+        dueDate.setHours(0,0,0,0);
+
+        if (task.completed) {
+
+            completed++;
+
+        }
+        else {
+
+            pending++;
+
+            if (dueDate < today) {
+
+                overdue++;
+            }
+        }
+    });
+
+    $("#pendingCount").text(`Pending: ${pending}`);
+
+    $("#completedCount").text(`Completed: ${completed}`);
+
+    $("#overdueCount").text(`Overdue: ${overdue}`);
+
+    $("#totalCount").text(`Total Tasks: ${tasks.length}`);
+}
 updateUpcomingTasks();
